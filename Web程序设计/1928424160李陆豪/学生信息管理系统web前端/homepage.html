@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">            <!--Author：李陆豪 1928424160-->
+    <title>学生信息管理系统主页</title>
+    <link rel="stylesheet" href="usual.css" />
+    <script src="vue.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+    <div class="fatherdiv">
+        <div class="top" id="nav">                                                    <!--通过Vue实现的顶部菜单//项目名：nav-->
+            <ul>
+                <button @click="createInfo" v-if="if_change">{{is_in_create}}</button>
+                <button @click="deleteInfo" v-if="if_change">{{is_in_delete}}</button>
+                <button @click="updateInfo" v-if="if_change">{{is_in_update}}</button>
+                <li><a href="index.html">relogin</a></li>
+                <li><button @click="changeMode">{{is_in_edit}}</button></li>
+            </ul> 
+        </div>
+        <div style="height: 60px;top: 0;left: 0;"></div>
+        <div class="mainpage" id="mainapp">                                           <!--通过Vue实现的条件渲染主修改页面-->
+            <div v-if="mainview">
+                <div class="fatherdivmid">
+                    <h3>学生列表：</h3>
+                    <ul>
+                        <li v-for="item,skey in students">
+                            <p>索引值：{{skey}}</p>
+                            <h4>姓名：{{item.studentName}}</h4>
+                            <h4>学号：{{item.studentId}}</h4>
+                            <h4>性别：{{item.studentSex}}</h4>
+                            <h4>主修专业：{{item.studentMajor}}</h4>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div v-if="create_info_view">                                             <!--创建信息页面开启-->
+                <div class="fatherdiv">
+                    <div class="fatherdivleft">
+                        <h3>学生列表：</h3>
+                        <ul>
+                            <li v-for="item,skey in students">
+                                <p>索引值：{{skey}}</p>
+                                <h4>姓名：{{item.studentName}}</h4>
+                                <h4>学号：{{item.studentId}}</h4>
+                                <h4>性别：{{item.studentSex}}</h4>
+                                <h4>主修专业：{{item.studentMajor}}</h4>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="fatherdivright">
+                        <ul>
+                            <li>
+                                学生学号：<input type="text" v-model="input_id" />
+                                学生姓名：<input type="text" v-model="input_name" />
+                                学生性别：<input type="text" v-model="input_sex" />
+                                学生专业：<input type="text" v-model="input_major" />
+                                <button @click="screate">提交</button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div v-if="delete_info_view">                                             <!--删除信息页面开启-->
+                <div class="fatherdiv">
+                    <div class="fatherdivleft">
+                        <h3>学生列表：</h3>
+                        <ul>
+                            <li v-for="item,skey in students">
+                                <p>索引值：{{skey}}</p>
+                                <h4>姓名：{{item.studentName}}</h4>
+                                <h4>学号：{{item.studentId}}</h4>
+                                <h4>性别：{{item.studentSex}}</h4>
+                                <h4>主修专业：{{item.studentMajor}}</h4>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="fatherdivright">
+                        <ul>
+                            <li>
+                                目标学生索引值：<input type="text" v-model="target_id" placeholder="请输入要删除学生的索引值" />
+                                <button @click="locked">追踪</button>
+                            </li>
+                        </ul>
+                        <ul v-if="isLocked">
+                            <li>
+                                学号：<p>{{students[target_id].studentId}}</p>
+                                姓名：<p>{{students[target_id].studentName}}</p>
+                                性别：<p>{{students[target_id].studentSex}}</p>
+                                专业：<p>{{students[target_id].studentMajor}}</p>
+                                <h4>你确定要删除吗？</h4>
+                                <button @click="sdelete">确定</button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div v-if="update_info_view">                                             <!--修改信息页面开启-->
+                <div class="fatherdiv">
+                    <div class="fatherdivleft">
+                        <h3>学生列表：</h3>
+                        <ul>
+                            <li v-for="item,skey in students">
+                                <p>索引值：{{skey}}</p>
+                                <h4>姓名：{{item.studentName}}</h4>
+                                <h4>学号：{{item.studentId}}</h4>
+                                <h4>性别：{{item.studentSex}}</h4>
+                                <h4>主修专业：{{item.studentMajor}}</h4>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="fatherdivright">
+                        <ul>
+                            <li>
+                                目标学生索引值：<input type="text" v-model="target_id" placeholder="请输入要修改学生的索引值" />
+                                <button @click="locked">追踪</button>
+                            </li>
+                        </ul>
+                        <ul v-if="isLocked">
+                            <li>
+                                学号：<p>{{students[target_id].studentId}}</p>
+                                姓名：<p>{{students[target_id].studentName}}</p>
+                                性别：<p>{{students[target_id].studentSex}}</p>
+                                专业：<p>{{students[target_id].studentMajor}}</p>
+                                请输入修改值：<br/>
+                                学生学号：<input type="text" v-model="input_id" />
+                                学生姓名：<input type="text" v-model="input_name" />
+                                学生性别：<input type="text" v-model="input_sex" />
+                                学生专业：<input type="text" v-model="input_major" />
+                                <button @click="supdate">确定</button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    let nav = new Vue({
+        el:"#nav",
+        data:{
+            is_in_create:"新建学生信息",
+            is_in_delete:"删除学生信息",
+            is_in_update:"修改学生信息",
+            is_in_edit:"进入编辑模式",
+            if_change:false
+        },
+        methods:{
+            changeMode:function(){                                                      /*编辑模式页面开启*/
+                nav.if_change = !nav.if_change;
+                if(nav.if_change){
+                    alert("你已进入编辑模式！");
+                    nav.is_in_edit="退出编辑模式";
+                }
+                else{                                                                   /*关闭编辑模式页面的同时将页面置为初始状态*/
+                    alert("你已退出编辑模式！");
+                    mainapp.create_info_view=false;
+                    mainapp.delete_info_view=false;
+                    mainapp.update_info_view=false;
+                    nav.is_in_edit="进入编辑模式";
+                    nav.is_in_create="新建学生信息";
+                    nav.is_in_delete="删除学生信息";
+                    nav.is_in_update="修改学生信息";
+                }
+            },
+            createInfo:function(){                                                      /*新建学生信息页面开启/关闭*/
+                mainapp.create_info_view=!mainapp.create_info_view;
+                mainapp.mainview=false;
+                if(mainapp.create_info_view){
+                    if(mainapp.update_info_view||mainapp.delete_info_view){             /*防止修改页面多开措施*/
+                        mainapp.create_info_view=!mainapp.create_info_view;
+                        alert("请先退出其他的编辑页面后再次尝试");
+                    }
+                    else{
+                    nav.is_in_create="退出新建学生信息";
+                    }
+                }
+                else{
+                    nav.is_in_create="新建学生信息";
+                    mainapp.mainview=true;
+                }
+            },
+            deleteInfo:function(){                                                      /*删除学生信息页面开启或关闭*/
+                mainapp.delete_info_view=!mainapp.delete_info_view;
+                mainapp.mainview=false;
+                if(mainapp.delete_info_view){
+                    if(mainapp.create_info_view||mainapp.update_info_view){             /*防止修改页面多开措施*/
+                        mainapp.delete_info_view=!mainapp.delete_info_view;
+                        alert("请先退出其他的编辑页面后再次尝试");
+                    }
+                    else{
+                        nav.is_in_delete="退出删除学生信息";
+                    }
+                }
+                else{
+                    nav.is_in_delete="删除学生信息";
+                    mainapp.mainview=true;
+                }
+            },
+            updateInfo:function(){                                                      /*修改学生信息页面开启/关闭*/
+                mainapp.update_info_view=!mainapp.update_info_view;
+                mainapp.mainview=false;
+                if(mainapp.update_info_view){
+                    if(mainapp.delete_info_view||mainapp.create_info_view){             /*防止修改页面多开措施*/
+                        mainapp.update_info_view=!mainapp.update_info_view;
+                        alert("请先退出其他的编辑页面后再次尝试");
+                    }
+                    else{
+                        nav.is_in_update="退出修改学生信息";
+                    }
+                }
+                else{
+                    nav.is_in_update="修改学生信息";
+                    mainapp.mainview=true;
+                }
+            }
+
+        }
+    })
+    let mainapp = new Vue({                                                             /*新建主页面项目*/
+        el:"#mainapp",
+        data:{
+            mainview:true,
+            isLocked:false,
+            acctimes:0,
+            create_info_view:false,
+            delete_info_view:false,
+            update_info_view:false,
+            target_id:"",
+            input_id:"",
+            input_name:"",
+            input_sex:"",
+            input_major:"",
+            students:[                                                                  /*学生信息数据表*/
+                {
+                    studentName:"丁一",
+                    studentId:"001",
+                    studentSex:"男",
+                    studentMajor:"软件开发java"
+                },
+                {
+                    studentName:"丁二",
+                    studentId:"002",
+                    studentSex:"男",
+                    studentMajor:"软件开发python"
+                },
+                {
+                    studentName:"丁三",
+                    studentId:"003",
+                    studentSex:"女",
+                    studentMajor:"软件开发web"
+                }
+            ]
+        },
+        methods:{
+            screate:function(){                                                         /*自动新建信息*/
+                var cache = {};
+                cache.studentId = mainapp.input_id;
+                cache.studentName = mainapp.input_name;
+                cache.studentSex = mainapp.input_sex;
+                cache.studentMajor = mainapp.input_major;
+                mainapp.input_id = "";
+                mainapp.input_name = "";
+                mainapp.input_sex = "";
+                mainapp.input_major = "";
+                mainapp.students.push(cache);
+                mainapp.acctimes=mainapp.acctimes+1;
+                alert("创建成功！");
+            },
+            locked:function(){                                                          /*合法索引值检测*/
+                if(mainapp.target_id>mainapp.acctimes+2){
+                    alert("追踪失败：索引号超出范围!");
+                    mainapp.target_id="";
+                }
+                else if(mainapp.target_id<0){
+                    alert("追踪失败：索引号小于最小值!");
+                    mainapp.target_id="";
+                }
+                else{
+                    mainapp.isLocked=true;
+                }
+            },
+            sdelete:function(){                                                         /*删除信息*/
+                mainapp.students.splice(mainapp.target_id,1);
+                mainapp.isLocked=false;
+            },
+            supdate:function(){                                                         /*修改信息*/
+                var cache = {};
+                cache.studentId = mainapp.input_id;
+                cache.studentName = mainapp.input_name;
+                cache.studentSex = mainapp.input_sex;
+                cache.studentMajor = mainapp.input_major;
+                mainapp.input_id = "";
+                mainapp.input_name = "";
+                mainapp.input_sex = "";
+                mainapp.input_major = "";
+                mainapp.students.splice(mainapp.target_id,1,cache)
+            }
+        }
+    })
+</script>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>学生信息管理系统登陆页面</title>
+    <link rel="stylesheet" href="usual.css" />
+    <script src="vue.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+    <div class="fatherdiv">
+        <div class="fatherdivtop">
+            <div class="circlediv">
+                <img src="crisis.jpeg" class="circleimg" />
+            </div>
+        </div>
+        <div class="fatherdivdown" id="app"> 
+                <input type="text" class="usernumtext" maxlength="16" v-model="username" placeholder="请输入账号" />
+                <input type="password" class="usercodetext" maxlength="16" autocomplete="off" v-model="usercode" placeholder="请输入密码" />
+                <button class="loginbutton" @click="login">登录</button>
+        </div>
+        
+    </div>
+</body>
+
+<script>
+    let app = new Vue({
+        el:"#app",
+        data:{
+            username:"LiLuhao",
+            usercode:1928424160
+        },
+        methods:{
+            login:function(){
+                let usercode = this.usercode;
+                let username = this.username;
+                if(username=="LiLuhao"){
+                    if(usercode==1928424160){
+                        alert("Login successed!");
+                        location.href="homepage.html"                                       /*跳转页面*/
+                    }
+                    else{
+                        alert("Error code!")
+                    }
+                }
+                else{
+                    alert("Error name!")
+                }
+            }
+        }
+    })
+</script>
+</html>

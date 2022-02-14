@@ -1,0 +1,181 @@
+body{
+    background-color: rgb(100, 258, 130);
+}
+.fatherdiv{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+}
+.fatherdivtop{
+    
+    width: 100%;
+    height: 40%;
+    position: relative;
+}
+.fatherdivdown{
+    width: 100%;
+    height: 600px;
+    margin-top: auto;
+    position: relative;
+}
+.fatherdivleft{
+    position: absolute;
+    width: 39%;
+    height: auto;
+    top: 0;
+    left: 0;
+    background-color: rgb(168, 207, 205);
+    border: 1px solid rgb(168, 213, 255);
+    border-radius: 2%;
+}
+.fatherdivmid{
+    position: relative;
+    width: 100%;
+    height: auto;
+    top: 0;
+    left: 0;
+    background-color: rgb(168, 227, 255);
+    border: 1px solid rgb(168, 213, 255);
+    border-radius: 1%;
+}
+.fatherdivmid h3{
+    text-align: center;
+}
+.fatherdivright{
+    position: absolute;
+    width: 59%;
+    height: auto;
+    top: 0;
+    right: 0;
+    background-color: rgb(168, 227, 255);
+    border: 1px solid rgb(168, 213, 255);
+}
+.fatherdivleft h3{
+    text-align: center;
+}
+
+.circlediv{
+    border: 1px solid black;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    position: relative;
+    top: 80px;
+    left: 50%;
+    margin-left: -150px;
+}
+.circleimg{
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    max-width: 100%;
+}
+.usernumtext{
+    background-color: rgb(222, 222, 230);
+    width: 900px;
+    height: 80px;
+    position: absolute;
+    top: 150px;
+    left: 50%;
+    margin-left: -450px;
+    font-size: xx-large;
+    letter-spacing: 5px;
+    font-weight: 600;
+    text-align:center
+}
+.usercodetext{
+    background-color: rgb(122, 202, 230);
+    width: 900px;
+    height: 80px;
+    position: absolute;
+    top: 350px;
+    left: 50%;
+    margin-left: -450px;
+    font-size: xx-large;
+    letter-spacing: 5px;
+    font-weight: 600;
+    text-align:center
+}
+.loginbutton{
+    background-color: rgb(88, 107, 214);
+    height: 50px;
+    width: 100px;
+    position: absolute;
+    left: 50%;
+    top: 80%;
+    margin-left: -50px;
+    text-align: center;
+    font-weight: 700;
+    font-size: xx-large;
+}
+
+/*导航栏*/
+
+.top{
+    /* 设置宽度高度背景颜色 */
+    height: auto; /*高度改为自动高度*/
+    width:100%;
+    left: 0;
+    top: 0;/*离顶部的距离为0*/
+    background:rgb(109, 107, 255);
+    position: fixed; /*固定在顶部*/
+    margin-bottom: 5px;
+}
+.top ul{
+    /* 清除ul标签的默认样式 */
+    width: auto;/*宽度也改为自动*/
+    list-style-type: none;
+    white-space:nowrap;
+    overflow: hidden;
+    margin-left: 5%;
+    /* margin-top: 0;          */
+    padding: 0;
+
+}
+.top li {
+    float:left; /* 使li内容横向浮动，即横向排列  */
+    margin-right: 2%;  /* 两个li之间的距离*/
+    position: relative;
+    overflow: hidden;
+}
+
+.top li a{
+   /* 设置链接内容显示的格式*/
+    display: block; /* 把链接显示为块元素可使整个链接区域可点击 */
+    color:white;
+    text-align: center;
+    padding: 3px;
+    overflow: hidden;
+    text-decoration: none; /* 去除下划线 */
+    
+}
+.top li a:hover{
+    /* 鼠标选中时背景变为黑色 */
+    background-color: rgb(139, 199, 255);
+}
+.top ul li ul{
+    /* 设置二级菜单 */
+    margin-left: -0.2px;
+    background:rgb(189, 181, 181);
+    position: relative;
+    display: none; /* 默认隐藏二级菜单的内容 */
+
+}
+.top ul li ul li{
+    /* 二级菜单li内容的显示 */
+    
+    float:none;
+    text-align: center;
+}
+.top ul li:hover ul{
+    /* 鼠标选中二级菜单内容时 */
+    display: block;
+}
+.top ul button{
+    float: right;
+    padding: 3px;
+    margin-right: 2%;
+    position: relative;
+    overflow: hidden;
+}
